@@ -54,6 +54,23 @@ Add ``"getpaid_payu"`` to your ``INSTALLED_APPS`` and add plugin configuration.
 That should be enough to make your ``getpaid`` integration use new plugin
 and allow you to choose PayU for supported currencies.
 
+You can optionally override callback handler:
+
+
+.. code-block:: python
+
+    from getpaid.backends.payu.processor import PaymentProcessor as GetpaidPayuProcessor
+
+    class PayuCallbackHandler:
+        def __init__(self, payment):
+            self.payment = payment
+
+        def handle(self, data):
+            pass
+
+    class PayuPaymentProcessor(GetpaidPayuProcessor):
+        callback_handler_class = PayuCallbackHandler
+
 Other settings
 --------------
 
